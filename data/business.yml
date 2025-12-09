@@ -1,0 +1,10 @@
+# Business Settings
+# Customize your business information and branding
+
+# Business Information (required: name, tagline, image, phone, address | optional: email)
+business:
+  title: Pinnacle Café
+  subtitle: Where conversations are brewed ☕.
+  image: https://***REMOVED***
+  phone: '+15125857291'
+  address: 500 Folsom St, APT 3906 San Francisco 94105

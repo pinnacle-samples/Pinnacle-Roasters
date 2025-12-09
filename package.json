@@ -1,0 +1,35 @@
+{
+  "name": "pinnacle-cafe",
+  "version": "1.0.0",
+  "description": "An interactive RCS chatbot for Pinnacle Cafe featuring menu browsing, ordering, and loyalty rewards",
+  "type": "module",
+  "main": "index.ts",
+  "scripts": {
+    "start": "tsx index.ts",
+    "dev": "tsx watch index.ts",
+    "build": "tsc",
+    "format": "prettier --write \"**/*.{ts,js,json,md}\""
+  },
+  "keywords": [
+    "rcs",
+    "chatbot",
+    "pinnacle",
+    "cafe",
+    "messaging"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "rcs-js": "^2.0.4",
+    "js-yaml": "^4.1.0",
+    "dotenv": "^16.3.1",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.3"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^20.10.6"
+  }
+}

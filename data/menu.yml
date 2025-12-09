@@ -1,0 +1,103 @@
+# Menu
+# Note: Edit this file to customize your cafe's menu items
+
+- name: ☕ Coffee & Beverages
+  description: Freshly brewed drinks to energize your day, from classic espresso to creamy lattes.
+  image: https://***REMOVED***
+  items:
+    - name: Caramel Latte
+      price: $4.50
+      description: Smooth espresso with caramel and creamy steamed milk.
+      image: https://***REMOVED***
+
+    - name: Cold Brew
+      price: $4.00
+      description: Slow-brewed and bold with a crisp, refreshing finish.
+      image: https://***REMOVED***
+
+    - name: Matcha Oat Latte
+      price: $5.00
+      description: Premium matcha with creamy oat milk for a smooth, energizing sip.
+      image: https://***REMOVED***
+
+    - name: Cappuccino
+      price: $4.00
+      description: Classic espresso crowned with velvety milk foam.
+      image: https://***REMOVED***
+
+    - name: Iced Americano
+      price: $3.50
+      description: Rich espresso over ice, the perfect wake-up call.
+      image: https://***REMOVED***
+
+- name: Breakfast & Pastries 🥐
+  description: Start your morning right with flaky pastries, hearty toast, and breakfast favorites.
+  image: https://***REMOVED***
+  items:
+    - name: Butter Croissant
+      price: $3.50
+      description: Flaky, buttery perfection that melts in your mouth.
+      image: https://***REMOVED***
+
+    - name: Avocado Toast
+      price: $8.00
+      description: Creamy smashed avocado on sourdough with a savory crunch.
+      image: https://***REMOVED***
+
+    - name: Breakfast Burrito
+      price: $9.00
+      description: Fluffy eggs, melted cheese, and veggies wrapped to go.
+      image: https://***REMOVED***
+
+    - name: Blueberry Muffin
+      price: $3.00
+      description: Soft, sweet, and bursting with real blueberries.
+      image: https://***REMOVED***
+
+- name: Lunch & Sandwiches 🥪
+  description: Satisfying midday meals — sandwiches, wraps, and bowls packed with flavor and freshness.
+  image: https://***REMOVED***
+  items:
+    - name: Turkey Club
+      price: $10.00
+      description: Stacked high with turkey, bacon, lettuce, and tomato.
+      image: https://***REMOVED***
+
+    - name: Caprese Panini
+      price: $9.50
+      description: Melted mozzarella, tomato, and basil on toasted ciabatta.
+      image: https://***REMOVED***
+
+    - name: Chicken Caesar Wrap
+      price: $9.00
+      description: Grilled chicken, crisp romaine, and parmesan with Caesar dressing.
+      image: https://***REMOVED***
+
+    - name: Veggie Bowl
+      price: $11.00
+      description: Hearty quinoa with roasted veggies and creamy tahini drizzle.
+      image: https://***REMOVED***
+
+- name: Desserts 🍰
+  description: Sweet endings for every meal — cakes, tarts, and creamy delights to satisfy your cravings.
+  image: https://***REMOVED***
+  items:
+    - name: Chocolate Cake
+      price: $5.50
+      description: Rich, moist layers of decadent chocolate.
+      image: https://***REMOVED***
+
+    - name: Lemon Tart
+      price: $5.00
+      description: Bright, tangy lemon curd in a buttery crust.
+      image: https://***REMOVED***
+
+    - name: Tiramisu
+      price: $6.00
+      description: Espresso-soaked layers with mascarpone and cocoa.
+      image: https://***REMOVED***
+
+    - name: Cheesecake
+      price: $5.50
+      description: Classic New York style topped with berry compote.
+      image: https://***REMOVED***

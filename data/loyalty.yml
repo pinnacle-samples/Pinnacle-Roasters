@@ -1,0 +1,18 @@
+# Loyalty Rewards
+# Edit this file to customize your loyalty rewards program
+
+rewards:
+  - name: Caffeine Boost
+    points: 100
+    description: Grab any size espresso — your well-earned caffeine boost!
+    image: https://***REMOVED***
+
+  - name: Sweet Victory
+    points: 250
+    description: Pick any dessert from our menu — a sweet treat just for you.
+    image: https://***REMOVED***
+
+  - name: Morning Win
+    points: 400
+    description: Enjoy a pastry + coffee combo — the ultimate morning reward.
+    image: https://***REMOVED***
