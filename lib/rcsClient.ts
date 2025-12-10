@@ -1,4 +1,4 @@
-import { Pinnacle } from 'rcs-js';
+import { PinnacleClient } from 'rcs-js';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -9,6 +9,6 @@ if (!PINNACLE_API_KEY) {
   throw new Error('PINNACLE_API_KEY environment variable is required');
 }
 
-export const rcsClient = new Pinnacle({
+export const rcsClient = new PinnacleClient({
   apiKey: PINNACLE_API_KEY,
 });

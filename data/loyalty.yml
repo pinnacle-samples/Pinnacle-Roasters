@@ -5,14 +5,14 @@ rewards:
   - name: Caffeine Boost
     points: 100
     description: Grab any size espresso — your well-earned caffeine boost!
-    image: https://***REMOVED***
+    image: https://server.trypinnacle.app/storage/v1/object/public/pinnacle-public-assets/demos/pinnacle-cafe/coffee.jpg
 
   - name: Sweet Victory
     points: 250
     description: Pick any dessert from our menu — a sweet treat just for you.
-    image: https://***REMOVED***
+    image: https://server.trypinnacle.app/storage/v1/object/public/pinnacle-public-assets/demos/pinnacle-cafe/dessert.jpg
 
   - name: Morning Win
     points: 400
     description: Enjoy a pastry + coffee combo — the ultimate morning reward.
-    image: https://***REMOVED***
+    image: https://server.trypinnacle.app/storage/v1/object/public/pinnacle-public-assets/demos/pinnacle-cafe/egg-toast.jpg

@@ -3,101 +3,101 @@
 
 - name: ☕ Coffee & Beverages
   description: Freshly brewed drinks to energize your day, from classic espresso to creamy lattes.
-  image: https://***REMOVED***
+  image: https://server.trypinnacle.app/storage/v1/object/public/pinnacle-public-assets/demos/pinnacle-cafe/caramel-latte.jpg
   items:
     - name: Caramel Latte
       price: $4.50
       description: Smooth espresso with caramel and creamy steamed milk.
-      image: https://***REMOVED***
+      image: https://server.trypinnacle.app/storage/v1/object/public/pinnacle-public-assets/demos/pinnacle-cafe/caramel-latte.jpg
 
     - name: Cold Brew
       price: $4.00
       description: Slow-brewed and bold with a crisp, refreshing finish.
-      image: https://***REMOVED***
+      image: https://server.trypinnacle.app/storage/v1/object/public/pinnacle-public-assets/demos/pinnacle-cafe/cold-brew.jpg
 
     - name: Matcha Oat Latte
       price: $5.00
       description: Premium matcha with creamy oat milk for a smooth, energizing sip.
-      image: https://***REMOVED***
+      image: https://server.trypinnacle.app/storage/v1/object/public/pinnacle-public-assets/demos/pinnacle-cafe/matcha-oat-latte.jpg
 
     - name: Cappuccino
       price: $4.00
       description: Classic espresso crowned with velvety milk foam.
-      image: https://***REMOVED***
+      image: https://server.trypinnacle.app/storage/v1/object/public/pinnacle-public-assets/demos/pinnacle-cafe/cappuccino.jpg
 
     - name: Iced Americano
       price: $3.50
       description: Rich espresso over ice, the perfect wake-up call.
-      image: https://***REMOVED***
+      image: https://server.trypinnacle.app/storage/v1/object/public/pinnacle-public-assets/demos/pinnacle-cafe/iced-americano.jpg
 
 - name: Breakfast & Pastries 🥐
   description: Start your morning right with flaky pastries, hearty toast, and breakfast favorites.
-  image: https://***REMOVED***
+  image: https://server.trypinnacle.app/storage/v1/object/public/pinnacle-public-assets/demos/pinnacle-cafe/butter-croissant.jpg
   items:
     - name: Butter Croissant
       price: $3.50
       description: Flaky, buttery perfection that melts in your mouth.
-      image: https://***REMOVED***
+      image: https://server.trypinnacle.app/storage/v1/object/public/pinnacle-public-assets/demos/pinnacle-cafe/butter-croissant-category.jpg
 
     - name: Avocado Toast
       price: $8.00
       description: Creamy smashed avocado on sourdough with a savory crunch.
-      image: https://***REMOVED***
+      image: https://server.trypinnacle.app/storage/v1/object/public/pinnacle-public-assets/demos/pinnacle-cafe/avocado-toast.jpg
 
     - name: Breakfast Burrito
       price: $9.00
       description: Fluffy eggs, melted cheese, and veggies wrapped to go.
-      image: https://***REMOVED***
+      image: https://server.trypinnacle.app/storage/v1/object/public/pinnacle-public-assets/demos/pinnacle-cafe/breakfast-burrito.jpg
 
     - name: Blueberry Muffin
       price: $3.00
       description: Soft, sweet, and bursting with real blueberries.
-      image: https://***REMOVED***
+      image: https://server.trypinnacle.app/storage/v1/object/public/pinnacle-public-assets/demos/pinnacle-cafe/blueberry-muffin.jpg
 
 - name: Lunch & Sandwiches 🥪
   description: Satisfying midday meals — sandwiches, wraps, and bowls packed with flavor and freshness.
-  image: https://***REMOVED***
+  image: https://server.trypinnacle.app/storage/v1/object/public/pinnacle-public-assets/demos/pinnacle-cafe/lunch-category.jpg
   items:
     - name: Turkey Club
       price: $10.00
       description: Stacked high with turkey, bacon, lettuce, and tomato.
-      image: https://***REMOVED***
+      image: https://server.trypinnacle.app/storage/v1/object/public/pinnacle-public-assets/demos/pinnacle-cafe/turkey-club.jpg
 
     - name: Caprese Panini
       price: $9.50
       description: Melted mozzarella, tomato, and basil on toasted ciabatta.
-      image: https://***REMOVED***
+      image: https://server.trypinnacle.app/storage/v1/object/public/pinnacle-public-assets/demos/pinnacle-cafe/caprese-panini.jpg
 
     - name: Chicken Caesar Wrap
       price: $9.00
       description: Grilled chicken, crisp romaine, and parmesan with Caesar dressing.
-      image: https://***REMOVED***
+      image: https://server.trypinnacle.app/storage/v1/object/public/pinnacle-public-assets/demos/pinnacle-cafe/chicken-caesar-wrap.jpg
 
     - name: Veggie Bowl
       price: $11.00
       description: Hearty quinoa with roasted veggies and creamy tahini drizzle.
-      image: https://***REMOVED***
+      image: https://server.trypinnacle.app/storage/v1/object/public/pinnacle-public-assets/demos/pinnacle-cafe/veggie-bowl.jpg
 
 - name: Desserts 🍰
   description: Sweet endings for every meal — cakes, tarts, and creamy delights to satisfy your cravings.
-  image: https://***REMOVED***
+  image: https://server.trypinnacle.app/storage/v1/object/public/pinnacle-public-assets/demos/pinnacle-cafe/desserts-category.jpg
   items:
     - name: Chocolate Cake
       price: $5.50
       description: Rich, moist layers of decadent chocolate.
-      image: https://***REMOVED***
+      image: https://server.trypinnacle.app/storage/v1/object/public/pinnacle-public-assets/demos/pinnacle-cafe/chocolate-cake.jpg
 
     - name: Lemon Tart
       price: $5.00
       description: Bright, tangy lemon curd in a buttery crust.
-      image: https://***REMOVED***
+      image: https://server.trypinnacle.app/storage/v1/object/public/pinnacle-public-assets/demos/pinnacle-cafe/lemon-tart.jpg
 
     - name: Tiramisu
       price: $6.00
       description: Espresso-soaked layers with mascarpone and cocoa.
-      image: https://***REMOVED***
+      image: https://server.trypinnacle.app/storage/v1/object/public/pinnacle-public-assets/demos/pinnacle-cafe/tiramisu.jpg
 
     - name: Cheesecake
       price: $5.50
       description: Classic New York style topped with berry compote.
-      image: https://***REMOVED***
+      image: https://server.trypinnacle.app/storage/v1/object/public/pinnacle-public-assets/demos/pinnacle-cafe/cheesecake.jpg

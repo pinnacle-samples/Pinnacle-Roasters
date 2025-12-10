@@ -35,7 +35,7 @@ export class Agent extends BaseAgent {
   async showMainMenu(to: string) {
     // Generate additional Buttons if provided
     return await this.client.messages.rcs.send({
-      from: this.agentName,
+      from: this.agentId,
       to: to,
       cards: [
         {
@@ -75,7 +75,7 @@ export class Agent extends BaseAgent {
     }));
 
     return await this.client.messages.rcs.send({
-      from: this.agentName,
+      from: this.agentId,
       to: to,
       cards: cards,
       quickReplies: [
@@ -154,7 +154,7 @@ export class Agent extends BaseAgent {
           ];
 
     return await this.client.messages.rcs.send({
-      from: this.agentName,
+      from: this.agentId,
       to: to,
       cards: cards,
       quickReplies: quickReplies,
@@ -184,7 +184,8 @@ export class Agent extends BaseAgent {
     const headerCard = {
       title: '🎁 Loyalty Rewards',
       subtitle: `Current points: ${this.defaultPoints}\nLoyalty rewards can only be claimed in person.`,
-      media: 'https://***REMOVED***',
+      media:
+        'https://server.trypinnacle.app/storage/v1/object/public/pinnacle-public-assets/demos/pinnacle-cafe/loyalty-header.jpg',
       buttons: [],
     };
 
@@ -194,7 +195,7 @@ export class Agent extends BaseAgent {
     );
 
     return await this.client.messages.rcs.send({
-      from: this.agentName,
+      from: this.agentId,
       to: to,
       cards: [headerCard, ...cards],
       quickReplies: buttonsWithoutLoyalty,
@@ -206,7 +207,7 @@ export class Agent extends BaseAgent {
   async redeemReward(to: string, rewardName: string) {
     // Send redeem text
     await this.client.messages.rcs.send({
-      from: this.agentName,
+      from: this.agentId,
       to: to,
       cards: [
         {
@@ -222,9 +223,10 @@ export class Agent extends BaseAgent {
 
     // Send media
     return await this.client.messages.rcs.send({
-      from: this.agentName,
+      from: this.agentId,
       to: to,
-      media: 'https://***REMOVED***',
+      media:
+        'https://server.trypinnacle.app/storage/v1/object/public/pinnacle-public-assets/demos/pinnacle-cafe/qr-code.png',
       quickReplies: [
         {
           type: 'trigger',
@@ -248,19 +250,22 @@ export class Agent extends BaseAgent {
         name: 'Coffee Tasting',
         emoji: '☕',
         description: 'Experience our specialty coffee selections',
-        image: 'https://***REMOVED***',
+        image:
+          'https://server.trypinnacle.app/storage/v1/object/public/pinnacle-public-assets/demos/pinnacle-cafe/coffee-tasting.jpg',
       },
       {
         name: 'Barista Workshop',
         emoji: '👨‍🍳',
         description: 'Learn the art of coffee making',
-        image: 'https://***REMOVED***',
+        image:
+          'https://server.trypinnacle.app/storage/v1/object/public/pinnacle-public-assets/demos/pinnacle-cafe/barista-workshop.jpg',
       },
       {
         name: 'Private Event',
         emoji: '🎉',
         description: 'Host your event at our cafe',
-        image: 'https://***REMOVED***',
+        image:
+          'https://server.trypinnacle.app/storage/v1/object/public/pinnacle-public-assets/demos/pinnacle-cafe/private-event.jpg',
       },
     ];
 
@@ -285,7 +290,7 @@ export class Agent extends BaseAgent {
     );
 
     return await this.client.messages.rcs.send({
-      from: this.agentName,
+      from: this.agentId,
       to: to,
       cards: cards,
       quickReplies: buttonsWithoutEvents,
@@ -304,7 +309,8 @@ export class Agent extends BaseAgent {
     const cards = timeSlots.map((slot) => ({
       title: `${slot.day} at ${slot.time}`,
       subtitle: `Book your ${eventName} session`,
-      media: 'https://***REMOVED***',
+      media:
+        'https://server.trypinnacle.app/storage/v1/object/public/pinnacle-public-assets/demos/pinnacle-cafe/calendly.png',
       buttons: [
         {
           type: 'trigger' as const,
@@ -318,7 +324,7 @@ export class Agent extends BaseAgent {
     }));
 
     return await this.client.messages.rcs.send({
-      from: this.agentName,
+      from: this.agentId,
       to: to,
       cards: cards,
       quickReplies: this.standardButtons,
@@ -329,7 +335,7 @@ export class Agent extends BaseAgent {
   // 7. Confirm Appointment - Finalize booking
   async confirmAppointment(to: string, eventName: string, day: string, time: string) {
     return await this.client.messages.rcs.send({
-      from: this.agentName,
+      from: this.agentId,
       to: to,
       text: `✅ Appointment Confirmed!\n\nYour ${eventName} is scheduled for ${day} at ${time}.\n\nWe'll send you a reminder 1 hour before your appointment.`,
       quickReplies: this.standardButtons,
@@ -351,7 +357,7 @@ export class Agent extends BaseAgent {
     this.carts.set(to, cart);
 
     return await this.client.messages.rcs.send({
-      from: this.agentName,
+      from: this.agentId,
       to: to,
       text: `✅ Added ${item.name} to your cart!`,
       quickReplies: [
@@ -376,7 +382,7 @@ export class Agent extends BaseAgent {
 
     if (cart.length === 0) {
       return await this.client.messages.rcs.send({
-        from: this.agentName,
+        from: this.agentId,
         to: to,
         text: 'Your cart is empty. Browse our menu to add items!',
         quickReplies: this.standardButtons,
@@ -401,12 +407,13 @@ export class Agent extends BaseAgent {
     const headerCard = {
       title: '🛒 Your Cart',
       subtitle: `Total: $${total.toFixed(2)}`,
-      media: 'https://cdn-icons-png.flaticon.com/512/3081/3081986.png',
+      media:
+        'https://server.trypinnacle.app/storage/v1/object/public/pinnacle-public-assets/demos/pinnacle-cafe/shopping-cart.png',
       buttons: [],
     };
 
     return await this.client.messages.rcs.send({
-      from: this.agentName,
+      from: this.agentId,
       to: to,
       cards: [headerCard, ...cards],
       quickReplies: [
@@ -436,7 +443,7 @@ export class Agent extends BaseAgent {
 
     if (cart.length === 0) {
       return await this.client.messages.rcs.send({
-        from: this.agentName,
+        from: this.agentId,
         to: to,
         text: 'Your cart is empty. Browse our menu to add items!',
         quickReplies: this.standardButtons,
@@ -461,7 +468,7 @@ export class Agent extends BaseAgent {
     this.carts.delete(to);
 
     return await this.client.messages.rcs.send({
-      from: this.agentName,
+      from: this.agentId,
       to: to,
       text: `🎉 Order Confirmed!\n\nYour order:\n${orderSummary}\n\nTotal: $${total.toFixed(
         2,
@@ -476,7 +483,7 @@ export class Agent extends BaseAgent {
     this.carts.delete(to);
 
     return await this.client.messages.rcs.send({
-      from: this.agentName,
+      from: this.agentId,
       to: to,
       text: '🗑️ Your cart has been cleared.',
       quickReplies: this.standardButtons,

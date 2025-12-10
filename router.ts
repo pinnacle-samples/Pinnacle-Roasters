@@ -1,13 +1,16 @@
 import { Router, Request, Response } from 'express';
-import { RequestWithMessageEvent, TriggerPayload } from './lib/types';
 import { agent } from './lib/agent';
 import { MenuItem } from './lib/brand/types';
+import { rcsClient } from './lib/rcsClient';
 
 const pinnacleCafeRouter = Router();
 
 pinnacleCafeRouter.post('/', async (req: Request, res: Response) => {
   try {
-    const messageEvent = (req as RequestWithMessageEvent).messageEvent;
+    const messageEvent = await rcsClient.messages.process(req);
+    if (messageEvent.type !== 'MESSAGE.RECEIVED') {
+      return res.status(200).json({ message: 'Non-message event received' });
+    }
     const message = messageEvent.message;
     const from = messageEvent.conversation.from;
 
@@ -17,7 +20,10 @@ pinnacleCafeRouter.post('/', async (req: Request, res: Response) => {
       typeof message.button.raw === 'object' &&
       message.button.raw.type == 'trigger'
     ) {
-      const payload: TriggerPayload = JSON.parse(message.button.raw.payload);
+      const payload = JSON.parse(message.button.raw.payload) as {
+        action: string;
+        params?: Record<string, unknown>;
+      };
 
       switch (payload.action) {
         case 'sendMenuCategories':
