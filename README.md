@@ -2,9 +2,7 @@
 
 An interactive RCS chatbot for Pinnacle Cafe that provides a rich customer experience through Rich Communication Services (RCS) messaging.
 
-
 https://github.com/user-attachments/assets/6caaf196-5b1a-40c5-a969-e5ea01c282c5
-
 
 ## Features
 
@@ -44,15 +42,14 @@ https://github.com/user-attachments/assets/6caaf196-5b1a-40c5-a969-e5ea01c282c5
 ## Project Structure
 
 ```
-Pinnacle Cafe/
+Pinnacle-Cafe/
 ├── lib/
-│   ├── types.ts              # Shared TypeScript interfaces
 │   ├── rcsClient.ts          # Pinnacle RCS client configuration
 │   ├── baseAgent.ts          # Base agent class with common functionality
-│   ├── brand/
-│   │   ├── types.ts          # Business-specific type definitions
-│   │   └── menu.ts           # Menu data loader
-│   └── agent.ts              # Main chatbot agent implementation
+│   ├── agent.ts              # Main chatbot agent implementation
+│   └── brand/
+│       ├── types.ts          # Business-specific type definitions
+│       └── menu.ts           # Menu data loader
 ├── data/
 │   ├── business.yml          # Business information
 │   ├── menu.yml              # Menu items and categories
@@ -63,7 +60,6 @@ Pinnacle Cafe/
 ├── tsconfig.json             # TypeScript configuration
 ├── .env.example              # Environment variables template
 └── .gitignore                # Git ignore rules
-
 ```
 
 ## Setup
@@ -96,7 +92,7 @@ Pinnacle Cafe/
 PINNACLE_API_KEY=your_api_key_here
 PINNACLE_AGENT_ID=your_agent_id_here
 PINNACLE_SIGNING_SECRET=your_signing_secret_here
-TEST_MODE=true
+TEST_MODE=false
 PORT=3000
 ```
 
