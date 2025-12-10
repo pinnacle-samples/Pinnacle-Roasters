@@ -109,7 +109,7 @@ PORT=3000
    - Go to the [Pinnacle Webhooks Dashboard](https://app.pinnacle.sh/dashboard/development/webhooks)
    - Add your public URL with the `/webhook` path (e.g., `https://your-domain.com/webhook`)
    - Select your RCS agent to receive messages at this endpoint
-   - Copy the signing secret and add it to your `.env` file as `PINNACLE_SIGNING_SECRET`
+   - Copy the signing secret and add it to your `.env` file as `PINNACLE_SIGNING_SECRET`. The `process()` method uses this environment variable to verify the request signature.
 
 7. Text "MENU" to the bot to see the main menu.
 
