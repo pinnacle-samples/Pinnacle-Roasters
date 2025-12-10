@@ -199,7 +199,3 @@ For issues related to:
 - RCS functionality: Contact Pinnacle support
 - Chatbot implementation: Refer to the code documentation
 - Configuration: Check the `.env.example` file
-
-## License
-
-ISC
