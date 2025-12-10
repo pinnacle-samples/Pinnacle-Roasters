@@ -2,6 +2,10 @@
 
 An interactive RCS chatbot for Pinnacle Cafe that provides a rich customer experience through Rich Communication Services (RCS) messaging.
 
+
+https://github.com/user-attachments/assets/6caaf196-5b1a-40c5-a969-e5ea01c282c5
+
+
 ## Features
 
 ### Menu Browsing
