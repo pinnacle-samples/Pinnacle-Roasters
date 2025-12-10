@@ -138,7 +138,7 @@ npm start
 - `PINNACLE_API_KEY` (required): Your Pinnacle API key
 - `PINNACLE_AGENT_ID` (required): Your RCS agent ID from Pinnacle Dashboard
 - `PINNACLE_SIGNING_SECRET` (required): Webhook signing secret for request verification
-- `TEST_MODE` (optional): Enable test mode for development (default: false)
+- `TEST_MODE` (optional): Enable test mode for sending with a test agent (default: false)
 - `PORT` (optional): Server port (default: 3000)
 
 ### Menu Configuration
