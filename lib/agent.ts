@@ -26,7 +26,7 @@ export class Agent extends BaseAgent {
     },
     {
       type: 'call',
-      title: '📞 Call Us',
+      title: 'Call Us',
       payload: business.phone,
     },
   ];
@@ -35,7 +35,7 @@ export class Agent extends BaseAgent {
   async showMainMenu(to: string) {
     // Generate additional Buttons if provided
     return await this.client.messages.rcs.send({
-      from: this.agentId,
+      from: this.agentName,
       to: to,
       cards: [
         {
@@ -52,13 +52,12 @@ export class Agent extends BaseAgent {
           payload: 'END_DEMO',
         },
       ],
-      options: { test_mode: this.TEST_MODE },
     });
   }
 
   // 2. Menu Showcase - Category Selection
   async sendMenuCategories(to: string) {
-    const cards: Pinnacle.RcsCards.Cards.Item[] = menu.map((category) => ({
+    const cards: Pinnacle.RichCards.Cards.Item[] = menu.map((category) => ({
       title: category.name,
       media: category.image,
       subtitle: category.description,
@@ -75,7 +74,7 @@ export class Agent extends BaseAgent {
     }));
 
     return await this.client.messages.rcs.send({
-      from: this.agentId,
+      from: this.agentName,
       to: to,
       cards: cards,
       quickReplies: [
@@ -90,13 +89,12 @@ export class Agent extends BaseAgent {
           payload: JSON.stringify({ action: 'sendEvents' }),
         },
       ],
-      options: { test_mode: this.TEST_MODE },
     });
   }
 
   // 2. Menu Showcase - Show Items in Category
   async viewCategory(to: string, items: MenuItem[]) {
-    const cards: Pinnacle.RcsCards.Cards.Item[] = items.slice(0, 10).map((item) => ({
+    const cards: Pinnacle.RichCards.Cards.Item[] = items.slice(0, 10).map((item) => ({
       title: item.name,
       subtitle: `${item.price}\n${item.description}`,
       media: item.image,
@@ -154,17 +152,16 @@ export class Agent extends BaseAgent {
           ];
 
     return await this.client.messages.rcs.send({
-      from: this.agentId,
+      from: this.agentName,
       to: to,
       cards: cards,
       quickReplies: quickReplies,
-      options: { test_mode: this.TEST_MODE },
     });
   }
 
   // 3. Loyalty Rewards - Show available rewards and current points
   async sendLoyalty(to: string) {
-    const cards: Pinnacle.RcsCards.Cards.Item[] = loyaltyRewards.rewards.map((reward) => ({
+    const cards: Pinnacle.RichCards.Cards.Item[] = loyaltyRewards.rewards.map((reward) => ({
       title: `${reward.name}`,
       subtitle: `${reward.points} points\n${reward.description}`,
       media: reward.image,
@@ -184,8 +181,7 @@ export class Agent extends BaseAgent {
     const headerCard = {
       title: '🎁 Loyalty Rewards',
       subtitle: `Current points: ${this.defaultPoints}\nLoyalty rewards can only be claimed in person.`,
-      media:
-        'https://server.trypinnacle.app/storage/v1/object/public/pinnacle-public-assets/demos/pinnacle-cafe/loyalty-header.jpg',
+      media: 'https://server.trypinnacle.app/storage/v1/object/public/pinnacle-public-assets/ARC/pinnacle-roasters/loyalty-header.png',
       buttons: [],
     };
 
@@ -195,11 +191,10 @@ export class Agent extends BaseAgent {
     );
 
     return await this.client.messages.rcs.send({
-      from: this.agentId,
+      from: this.agentName,
       to: to,
       cards: [headerCard, ...cards],
       quickReplies: buttonsWithoutLoyalty,
-      options: { test_mode: this.TEST_MODE },
     });
   }
 
@@ -207,7 +202,7 @@ export class Agent extends BaseAgent {
   async redeemReward(to: string, rewardName: string) {
     // Send redeem text
     await this.client.messages.rcs.send({
-      from: this.agentId,
+      from: this.agentName,
       to: to,
       cards: [
         {
@@ -217,16 +212,25 @@ export class Agent extends BaseAgent {
           buttons: [],
         },
       ],
-      quickReplies: [],
-      options: { test_mode: this.TEST_MODE },
+      quickReplies: [
+        {
+          type: 'trigger',
+          title: '🏠 Main Menu',
+          payload: JSON.stringify({ action: 'showMainMenu' }),
+        },
+        {
+          type: 'trigger',
+          title: '🔚 End Demo',
+          payload: 'END_DEMO',
+        },
+      ],
     });
 
     // Send media
     return await this.client.messages.rcs.send({
-      from: this.agentId,
+      from: this.agentName,
       to: to,
-      media:
-        'https://server.trypinnacle.app/storage/v1/object/public/pinnacle-public-assets/demos/pinnacle-cafe/qr-code.png',
+      media: 'https://server.trypinnacle.app/storage/v1/object/public/pinnacle-public-assets/ARC/pinnacle-roasters/reward-redeem-qr.png',
       quickReplies: [
         {
           type: 'trigger',
@@ -239,7 +243,6 @@ export class Agent extends BaseAgent {
           payload: JSON.stringify({ action: 'sendEvents' }),
         },
       ],
-      options: { test_mode: this.TEST_MODE },
     });
   }
 
@@ -250,22 +253,19 @@ export class Agent extends BaseAgent {
         name: 'Coffee Tasting',
         emoji: '☕',
         description: 'Experience our specialty coffee selections',
-        image:
-          'https://server.trypinnacle.app/storage/v1/object/public/pinnacle-public-assets/demos/pinnacle-cafe/coffee-tasting.jpg',
+        image: 'https://server.trypinnacle.app/storage/v1/object/public/pinnacle-public-assets/ARC/pinnacle-roasters/event-coffee-tasting.png',
       },
       {
         name: 'Barista Workshop',
         emoji: '👨‍🍳',
         description: 'Learn the art of coffee making',
-        image:
-          'https://server.trypinnacle.app/storage/v1/object/public/pinnacle-public-assets/demos/pinnacle-cafe/barista-workshop.jpg',
+        image: 'https://server.trypinnacle.app/storage/v1/object/public/pinnacle-public-assets/ARC/pinnacle-roasters/event-barista-workshop.png',
       },
       {
         name: 'Private Event',
         emoji: '🎉',
         description: 'Host your event at our cafe',
-        image:
-          'https://server.trypinnacle.app/storage/v1/object/public/pinnacle-public-assets/demos/pinnacle-cafe/private-event.jpg',
+        image: 'https://server.trypinnacle.app/storage/v1/object/public/pinnacle-public-assets/ARC/pinnacle-roasters/event-private-event.png',
       },
     ];
 
@@ -290,11 +290,10 @@ export class Agent extends BaseAgent {
     );
 
     return await this.client.messages.rcs.send({
-      from: this.agentId,
+      from: this.agentName,
       to: to,
       cards: cards,
       quickReplies: buttonsWithoutEvents,
-      options: { test_mode: this.TEST_MODE },
     });
   }
 
@@ -309,8 +308,7 @@ export class Agent extends BaseAgent {
     const cards = timeSlots.map((slot) => ({
       title: `${slot.day} at ${slot.time}`,
       subtitle: `Book your ${eventName} session`,
-      media:
-        'https://server.trypinnacle.app/storage/v1/object/public/pinnacle-public-assets/demos/pinnacle-cafe/calendly.png',
+      media: 'https://server.trypinnacle.app/storage/v1/object/public/pinnacle-public-assets/ARC/pinnacle-roasters/appointment-slot.png',
       buttons: [
         {
           type: 'trigger' as const,
@@ -324,22 +322,20 @@ export class Agent extends BaseAgent {
     }));
 
     return await this.client.messages.rcs.send({
-      from: this.agentId,
+      from: this.agentName,
       to: to,
       cards: cards,
       quickReplies: this.standardButtons,
-      options: { test_mode: this.TEST_MODE },
     });
   }
 
   // 7. Confirm Appointment - Finalize booking
   async confirmAppointment(to: string, eventName: string, day: string, time: string) {
     return await this.client.messages.rcs.send({
-      from: this.agentId,
+      from: this.agentName,
       to: to,
       text: `✅ Appointment Confirmed!\n\nYour ${eventName} is scheduled for ${day} at ${time}.\n\nWe'll send you a reminder 1 hour before your appointment.`,
       quickReplies: this.standardButtons,
-      options: { test_mode: this.TEST_MODE },
     });
   }
 
@@ -357,7 +353,7 @@ export class Agent extends BaseAgent {
     this.carts.set(to, cart);
 
     return await this.client.messages.rcs.send({
-      from: this.agentId,
+      from: this.agentName,
       to: to,
       text: `✅ Added ${item.name} to your cart!`,
       quickReplies: [
@@ -372,7 +368,6 @@ export class Agent extends BaseAgent {
           payload: JSON.stringify({ action: 'sendMenuCategories' }),
         },
       ],
-      options: { test_mode: this.TEST_MODE },
     });
   }
 
@@ -382,15 +377,14 @@ export class Agent extends BaseAgent {
 
     if (cart.length === 0) {
       return await this.client.messages.rcs.send({
-        from: this.agentId,
+        from: this.agentName,
         to: to,
         text: 'Your cart is empty. Browse our menu to add items!',
         quickReplies: this.standardButtons,
-        options: { test_mode: this.TEST_MODE },
       });
     }
 
-    const cards: Pinnacle.RcsCards.Cards.Item[] = cart.map((cartItem) => ({
+    const cards: Pinnacle.RichCards.Cards.Item[] = cart.map((cartItem) => ({
       title: cartItem.item.name,
       subtitle: `${cartItem.item.price} x ${cartItem.quantity}\nTotal: $${(
         parseFloat(cartItem.item.price.replace('$', '')) * cartItem.quantity
@@ -407,13 +401,12 @@ export class Agent extends BaseAgent {
     const headerCard = {
       title: '🛒 Your Cart',
       subtitle: `Total: $${total.toFixed(2)}`,
-      media:
-        'https://server.trypinnacle.app/storage/v1/object/public/pinnacle-public-assets/demos/pinnacle-cafe/shopping-cart.png',
+      media: 'https://server.trypinnacle.app/storage/v1/object/public/pinnacle-public-assets/ARC/pinnacle-roasters/cart-icon.png',
       buttons: [],
     };
 
     return await this.client.messages.rcs.send({
-      from: this.agentId,
+      from: this.agentName,
       to: to,
       cards: [headerCard, ...cards],
       quickReplies: [
@@ -433,7 +426,6 @@ export class Agent extends BaseAgent {
           payload: JSON.stringify({ action: 'sendMenuCategories' }),
         },
       ],
-      options: { test_mode: this.TEST_MODE },
     });
   }
 
@@ -443,11 +435,10 @@ export class Agent extends BaseAgent {
 
     if (cart.length === 0) {
       return await this.client.messages.rcs.send({
-        from: this.agentId,
+        from: this.agentName,
         to: to,
         text: 'Your cart is empty. Browse our menu to add items!',
         quickReplies: this.standardButtons,
-        options: { test_mode: this.TEST_MODE },
       });
     }
 
@@ -468,13 +459,19 @@ export class Agent extends BaseAgent {
     this.carts.delete(to);
 
     return await this.client.messages.rcs.send({
-      from: this.agentId,
+      from: this.agentName,
       to: to,
       text: `🎉 Order Confirmed!\n\nYour order:\n${orderSummary}\n\nTotal: $${total.toFixed(
         2,
       )}\n\nYour order will be ready for pickup in 15-20 minutes. We'll notify you when it's ready!`,
-      quickReplies: this.standardButtons,
-      options: { test_mode: this.TEST_MODE },
+      quickReplies: [
+        ...this.standardButtons,
+        {
+          type: 'trigger',
+          title: '🔚 End Demo',
+          payload: 'END_DEMO',
+        },
+      ],
     });
   }
 
@@ -483,11 +480,10 @@ export class Agent extends BaseAgent {
     this.carts.delete(to);
 
     return await this.client.messages.rcs.send({
-      from: this.agentId,
+      from: this.agentName,
       to: to,
       text: '🗑️ Your cart has been cleared.',
       quickReplies: this.standardButtons,
-      options: { test_mode: this.TEST_MODE },
     });
   }
 }

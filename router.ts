@@ -1,7 +1,14 @@
 import { Router, Request, Response } from 'express';
+import { rcsClient } from './lib/rcsClient';
 import { agent } from './lib/agent';
 import { MenuItem } from './lib/brand/types';
-import { rcsClient } from './lib/rcsClient';
+import { sendTypingIndicator } from './lib/typing';
+
+
+interface TriggerPayload {
+  action: string;
+  params?: Record<string, unknown>;
+}
 
 const pinnacleCafeRouter = Router();
 
@@ -9,7 +16,8 @@ pinnacleCafeRouter.post('/', async (req: Request, res: Response) => {
   try {
     const messageEvent = await rcsClient.messages.process(req);
     if (messageEvent.type !== 'MESSAGE.RECEIVED') {
-      return res.status(200).json({ message: 'Non-message event received' });
+      console.error('[Pinnacle Roasters]: User event received', messageEvent);
+      return res.status(200).json({ message: 'User event received' });
     }
     const message = messageEvent.message;
     const from = messageEvent.conversation.from;
@@ -20,12 +28,14 @@ pinnacleCafeRouter.post('/', async (req: Request, res: Response) => {
       typeof message.button.raw === 'object' &&
       message.button.raw.type == 'trigger'
     ) {
-      const payload = JSON.parse(message.button.raw.payload) as {
-        action: string;
-        params?: Record<string, unknown>;
-      };
+      sendTypingIndicator(from);
+      const payload: TriggerPayload = JSON.parse(message.button.raw.payload);
 
       switch (payload.action) {
+        case 'showMainMenu':
+          await agent.showMainMenu(from);
+          return res.status(200).json({ message: 'Main menu sent' });
+
         case 'sendMenuCategories':
           await agent.sendMenuCategories(from);
           return res.status(200).json({ message: 'Menu categories sent' });
@@ -77,7 +87,7 @@ pinnacleCafeRouter.post('/', async (req: Request, res: Response) => {
           return res.status(200).json({ message: 'Cart cleared' });
 
         default:
-          console.error('[PinnacleCafe]: Invalid trigger payload', payload.action);
+          console.error('[Pinnacle Roasters]: Invalid trigger payload', payload.action);
           return res.status(400).json({
             error: 'Invalid Trigger Payload',
             action: payload.action,
@@ -87,6 +97,7 @@ pinnacleCafeRouter.post('/', async (req: Request, res: Response) => {
 
     // Handle text messages - send main menu
     if (message.type === 'RCS_TEXT') {
+      sendTypingIndicator(from);
       const text = message.text.trim();
       if (text === 'START' || text === 'SUBSCRIBE' || text === 'MENU') {
         await agent.showMainMenu(from);
@@ -103,7 +114,7 @@ pinnacleCafeRouter.post('/', async (req: Request, res: Response) => {
       received: message,
     });
   } catch (error) {
-    console.error('[PinnacleCafe]: Internal server error', error);
+    console.error('[Pinnacle Roasters]: Internal server error', error);
     return res.status(500).json({
       error: 'Internal server error',
       message: error instanceof Error ? error.message : 'Unknown error',

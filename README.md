@@ -1,92 +1,55 @@
-# Pinnacle Cafe Chatbot
+# Pinnacle Roasters — RCS Cafe Ordering Chatbot
 
-An interactive RCS chatbot for Pinnacle Cafe that provides a rich customer experience through Rich Communication Services (RCS) messaging.
+A cafe ordering chatbot that runs entirely inside RCS. Customers browse the menu by category, build a cart, RSVP to in-store events, and earn loyalty points on every order — no app install required.
+
+> **Live guide:** https://pinnacle.sh/samples/pinnacle-roasters
 
 https://github.com/user-attachments/assets/6caaf196-5b1a-40c5-a969-e5ea01c282c5
 
-## Features
+> Note: the visuals in this demo recording have since been refreshed with sharper brand assets. The conversation flow is identical to what you'll get from a fresh clone.
 
-### Menu Browsing
+## What's inside
 
-- Browse menu items organized by category (Coffee, Pastries, Sandwiches, etc.)
-- View detailed item information including descriptions, prices, and images
-- Rich card-based interface for easy navigation
+- Browse menu categories — coffee, tea, pastries, food
+- Persistent cart per customer with running totals
+- Loyalty points earned on every order, redeemable for free items
+- 1000 starter points so the redemption flow is demoable on day one
+- Order confirmation with pickup time and order number
+- In-store events with RSVP slot picker
 
-### Online Ordering
-
-- Add items to cart with a single tap
-- View cart with itemized breakdown and totals
-- Complete orders through the chatbot
-- Receive order confirmation and estimated pickup time
-
-### Loyalty & Rewards
-
-- View available loyalty rewards
-- Check current points balance
-- Redeem rewards with QR codes for in-person redemption
-- Track accumulated points from purchases
-
-### Event Management
-
-- Browse upcoming events (Coffee Tastings, Barista Workshops, Private Events)
-- View available time slots for events
-- Book and confirm appointments
-- Receive appointment confirmations and reminders
-
-### Additional Features
-
-- Direct calling capability to contact the cafe
-- Button-based interactions for seamless user experience
-- Test mode support for development and testing
-
-## Project Structure
-
-```
-Pinnacle-Cafe/
-├── lib/
-│   ├── rcsClient.ts          # Pinnacle RCS client configuration
-│   ├── baseAgent.ts          # Base agent class with common functionality
-│   ├── agent.ts              # Main chatbot agent implementation
-│   └── brand/
-│       ├── types.ts          # Business-specific type definitions
-│       └── menu.ts           # Menu data loader
-├── data/
-│   ├── business.yml          # Business information
-│   ├── menu.yml              # Menu items and categories
-│   └── loyalty.yml           # Loyalty rewards configuration
-├── server.ts                 # Main server with graceful shutdown
-├── router.ts                 # Express router for webhook handling
-├── package.json              # Project dependencies
-├── tsconfig.json             # TypeScript configuration
-├── .env.example              # Environment variables template
-└── .gitignore                # Git ignore rules
-```
-
-## Setup
-
-### Prerequisites
+## Prerequisites
 
 - Node.js 18+
-- A Pinnacle API account
-- RCS agent configured in Pinnacle
+- A Pinnacle account — [sign up](https://app.pinnacle.sh/auth/sign-up)
+- An RCS [test agent](https://docs.pinnacle.sh/guides/branded-test-agents) for development
+- A Pinnacle [API key](https://app.pinnacle.sh/dashboard/development/api-keys) and [webhook signing secret](https://app.pinnacle.sh/dashboard/development/webhooks)
 
-### Installation
+## Quick start
 
-1. Clone the repository
+```bash
+git clone https://github.com/pinnacle-samples/Pinnacle-Roasters
+cd Pinnacle-Roasters
+npm install
+cp .env.example .env
+# fill in PINNACLE_API_KEY, PINNACLE_AGENT_ID, PINNACLE_SIGNING_SECRET
+npm run dev
+```
 
-2. Install dependencies:
+Expose your webhook with [ngrok](https://ngrok.com):
 
-   ```bash
-   npm install
-   ```
+```bash
+ngrok http 3000
+```
 
-3. Create a `.env` file based on `.env.example`:
+Then in the [Pinnacle Webhooks dashboard](https://app.pinnacle.sh/dashboard/development/webhooks):
 
-   ```bash
-   cp .env.example .env
-   ```
+1. Add `https://<your-tunnel-domain>/webhook`
+2. Attach it to your RCS agent
+3. Copy the signing secret into `PINNACLE_SIGNING_SECRET`
 
-4. Configure your environment variables in `.env`:
+Send `MENU` or `START` to your agent — you'll see the cafe landing card with **Menu**, **Loyalty & Rewards**, and **Events** buttons.
+
+## Environment variables
 
 ```env
 PINNACLE_API_KEY=your_api_key_here
@@ -96,106 +59,69 @@ TEST_MODE=false
 PORT=3000
 ```
 
-5. Set up a public HTTPS URL for your webhook. For local development, you can use a tunneling service like [ngrok](https://ngrok.com):
+## Project structure
 
-   ```bash
-   ngrok http 3000
-   ```
-
-   For production, deploy to your preferred hosting provider.
-
-6. Connect your webhook to your RCS agent:
-
-   - Go to the [Pinnacle Webhooks Dashboard](https://app.pinnacle.sh/dashboard/development/webhooks)
-   - Add your public URL with the `/webhook` path (e.g., `https://your-domain.com/webhook`)
-   - Select your RCS agent to receive messages at this endpoint
-   - Copy the signing secret and add it to your `.env` file as `PINNACLE_SIGNING_SECRET`. The `process()` method uses this environment variable to verify the request signature.
-
-7. Text "MENU" to the bot to see the main menu.
-
-### Running the Application
-
-Development mode with auto-reload:
-
-```bash
-npm run dev
+```
+Pinnacle-Roasters/
+├── server.ts                  # Express bootstrap
+├── router.ts                  # /webhook POST — verifies + dispatches
+├── data/
+│   ├── business.yml           # Brand name, tagline, address, phone, image
+│   ├── menu.yml               # Categories + items
+│   └── loyalty.yml            # Reward tiers + points cost
+└── lib/
+    ├── rcsClient.ts           # PinnacleClient instance
+    ├── baseAgent.ts           # Shared send + typing helpers
+    ├── typing.ts              # Fire-and-forget typing indicator
+    ├── agent.ts               # Agent — every action handler lives here
+    └── brand/
+        ├── menu.ts            # YAML loader
+        └── types.ts           # BusinessInfo, MenuCategory, MenuItem, LoyaltyReward
 ```
 
-Production mode:
+## Action handlers
 
-```bash
-npm start
-```
+| Action | What it does |
+| --- | --- |
+| `showMainMenu` | Landing card with menu, loyalty, and events |
+| `sendMenuCategories` | Top-level menu categories |
+| `viewCategory` | Items inside a chosen category |
+| `addToCart` / `viewCart` / `clearCart` | Cart management |
+| `checkout` | Confirms and clears the cart |
+| `viewLoyalty` / `redeemReward` | Loyalty points + reward redemption |
+| `sendEvents` | Upcoming in-store events |
+| `showAppointmentTimes` / `confirmAppointment` | RSVP slot picker |
 
-## Configuration
+## Customize the menu
 
-### Environment Variables
-
-- `PINNACLE_API_KEY` (required): Your Pinnacle API key
-- `PINNACLE_AGENT_ID` (required): Your RCS agent ID from Pinnacle Dashboard
-- `PINNACLE_SIGNING_SECRET` (required): Webhook signing secret for request verification
-- `TEST_MODE` (optional): Enable test mode for sending with a test agent (default: false)
-- `PORT` (optional): Server port (default: 3000)
-
-### Menu Configuration
-
-Menu items are configured in YAML files under the `data/` directory:
-
-- `business.yml`: Business name, description, contact info
-- `menu.yml`: Menu categories and items
-- `loyalty.yml`: Loyalty rewards and point requirements
-
-## API Endpoints
-
-**Supported Actions:**
-
-- `sendMenuCategories`: Display menu categories
-- `viewCategory`: Show items in a category
-- `viewLoyalty`: Display loyalty rewards
-- `redeemReward`: Redeem a loyalty reward
-- `sendEvents`: Show upcoming events
-- `showAppointmentTimes`: Display available booking times
-- `confirmAppointment`: Confirm event booking
-- `addToCart`: Add item to shopping cart
-- `viewCart`: Display cart contents
-- `checkout`: Process order
-- `clearCart`: Empty shopping cart
-
-## Development
-
-### Adding New Menu Items
-
-Edit `data/menu.yml` to add new categories or items:
+Open `data/menu.yml` and append a new category. Categories and items are plain YAML — no code changes required:
 
 ```yaml
-- name: 'New Category'
-  description: 'Category description'
-  image: 'https://example.com/image.jpg'
+- name: 🍂 Seasonal
+  description: Limited-time fall favorites.
+  image: https://yourcdn.com/seasonal.jpg
   items:
-    - name: 'New Item'
-      price: '$5.99'
-      description: 'Item description'
-      image: 'https://example.com/item.jpg'
+    - name: Pumpkin Spice Latte
+      price: $5.50
+      description: Espresso, pumpkin spice syrup, steamed milk, whipped cream
+      image: https://yourcdn.com/psl.jpg
 ```
 
-### Adding New Features
+`sendMenuCategories` iterates over whatever's in `menu.yml` — restart the server to reload the YAML.
 
-1. Define action handlers in `lib/agent.ts`
-2. Add corresponding trigger payloads in button configurations
-3. Update router in `router.ts` to handle new actions
+## Loyalty program
 
-## Technologies
+Rewards live in `data/loyalty.yml`. Edit `data/business.yml` to rename the cafe, swap the logo, or update the address.
 
-- **TypeScript**: Type-safe development
-- **Express**: Web framework for webhook handling
-- **rcs-js**: Pinnacle RCS SDK v2.0.6+
-- **js-yaml**: YAML configuration parsing
-- **tsx**: TypeScript execution and hot-reload
+## Going to production
 
-## Support
+- Set `TEST_MODE=false` and submit your agent for [carrier approval](https://docs.pinnacle.sh/guides/campaigns/rcs)
+- Replace the in-memory `carts` Map with Postgres or Redis
+- Wire the checkout flow to your real POS or Stripe
 
-For issues related to:
+## Resources
 
-- RCS functionality: Contact Pinnacle support
-- Chatbot implementation: Refer to the code documentation
-- Configuration: Check the `.env.example` file
+- **Live guide:** https://pinnacle.sh/samples/pinnacle-roasters
+- **Pinnacle docs:** https://docs.pinnacle.sh/documentation/introduction
+- **Pinnacle dashboard:** https://app.pinnacle.sh
+- **Support:** founders@trypinnacle.app

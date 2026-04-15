@@ -14,10 +14,10 @@ app.use('/webhook', pinnacleCafeRouter);
 async function startServer(): Promise<Server> {
   try {
     return app.listen(PORT, () => {
-      console.info(`[PinnacleCafe] Server running on port ${PORT}`);
+      console.info(`[Pinnacle Roasters] Server running on port ${PORT}`);
     });
   } catch (err) {
-    console.error('[PinnacleCafe] Failed to initialize:', err);
+    console.error('[Pinnacle Roasters] Failed to initialize:', err);
     process.exit(1);
   }
 }
@@ -30,12 +30,12 @@ async function gracefulShutdown(signal: string) {
   }
 
   isShuttingDown = true;
-  console.info(`[PinnacleCafe] Received ${signal}. Beginning graceful shutdown.`);
+  console.info(`[Pinnacle Roasters] Received ${signal}. Beginning graceful shutdown.`);
 
   // Fallback timer in case existing connections hang.
   const forceExitTimer = setTimeout(() => {
     console.error(
-      `[PinnacleCafe] Graceful shutdown timed out after ${terminationGracePeriodMs / 1000} seconds. Forcing exit.`,
+      `[Pinnacle Roasters] Graceful shutdown timed out after ${terminationGracePeriodMs / 1000} seconds. Forcing exit.`,
     );
     process.exit(1);
   }, terminationGracePeriodMs).unref();
@@ -44,12 +44,12 @@ async function gracefulShutdown(signal: string) {
     clearTimeout(forceExitTimer);
 
     if (error) {
-      console.error('[PinnacleCafe] Error while closing HTTP server:', error);
+      console.error('[Pinnacle Roasters] Error while closing HTTP server:', error);
       process.exit(1);
     }
 
-    console.info('[PinnacleCafe] HTTP server closed cleanly.');
-    console.info('[PinnacleCafe] Exiting.');
+    console.info('[Pinnacle Roasters] HTTP server closed cleanly.');
+    console.info('[Pinnacle Roasters] Exiting.');
     process.exit(0);
   });
 }
